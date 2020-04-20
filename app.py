@@ -27,9 +27,14 @@ def image(ident):
 
 
 def _generate_crops(num_frames, input_fnames, *, max_offset=10):
+    previous_x = None
+    previous_y = None
     for fname in itertools.islice(itertools.cycle(input_fnames), num_frames):
-        x = random.randint(0, max_offset)
-        y = random.randint(0, max_offset)
+        while (x != previous_x and y != previous_y):
+            x = random.randint(0, max_offset)
+            y = random.randint(0, max_offset)
+        previous_x = x
+        previous_y = y
         yield from ['--crop', f'{x},{y}+-{max_offset-x}x-{max_offset-y}', fname]
 
 
