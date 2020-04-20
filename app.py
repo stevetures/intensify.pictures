@@ -30,7 +30,7 @@ def _generate_crops(num_frames, input_fnames, *, max_offset=10):
     previous_x = None
     previous_y = None
     for fname in itertools.islice(itertools.cycle(input_fnames), num_frames):
-        while (x != previous_x and y != previous_y):
+        while (x != previous_x or y != previous_y):
             x = random.randint(0, max_offset)
             y = random.randint(0, max_offset)
         previous_x = x
